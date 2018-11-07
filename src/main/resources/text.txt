@@ -1,0 +1,9 @@
+What’s wrong with this code? After all, it uses streams, lambdas, and method
+references, and gets the right answer. Simply put, it’s not streams code at all; it’s
+iterative code masquerading as streams code. It derives no benefits from the
+streams API, and it’s (a bit) longer, harder to read, and less maintainable than the
+corresponding iterative code. The problem stems from the fact that this code is
+doing all its work in a terminal forEach operation, using a lambda that mutates
+external state (the frequency table). A forEach operation that does anything
+more than present the result of the computation performed by a stream is a “bad
+smell in code,” as is a lambda that mutates state. So how should this code look?
